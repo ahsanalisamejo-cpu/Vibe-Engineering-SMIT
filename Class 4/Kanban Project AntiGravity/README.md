@@ -61,11 +61,9 @@ npm run start
 
 ## Vercel Deployment
 
-### Option 1: Automatic Root Deployment
-Connect your repository directly to Vercel. The included `vercel.json` and root `package.json` will automatically build the Next.js application from the `frontend` directory.
-
-### Option 2: Subdirectory Configuration
-When importing the repository in Vercel:
-1. In the **Root Directory** setting, select `frontend`.
-2. Leave Framework Preset as **Next.js**.
-3. Click **Deploy**.
+When deploying to Vercel:
+1. In the Vercel dashboard project import screen (or under **Settings > General**):
+2. Click **Edit** next to **Root Directory**.
+3. Select or enter `frontend` and click **Save**.
+4. Framework Preset will automatically detect **Next.js**.
+5. Click **Deploy**.
