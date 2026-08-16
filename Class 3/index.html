@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stride & Sole — Offline Shoe Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a1210;
+      --bg-soft: #0f1a17;
+      --surface: #132620;
+      --surface-light: #1a332b;
+      --text: #f4f7f5;
+      --muted: #94a89f;
+      --gold: #d4af37;
+      --gold-light: #f0d875;
+      --gold-dark: #a8892a;
+      --emerald: #10b981;
+      --emerald-dark: #047857;
+      --emerald-deep: #064e3b;
+      --border: rgba(212, 175, 55, 0.18);
+      --border-emerald: rgba(16, 185, 129, 0.25);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+      --glow-gold: 0 0 24px rgba(212, 175, 55, 0.25);
+      --glow-emerald: 0 0 24px rgba(16, 185, 129, 0.2);
+      --radius: 16px;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(16, 185, 129, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 90% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+        radial-gradient(ellipse 50% 30% at 50% 100%, rgba(6, 78, 59, 0.2) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-14px) rotate(2deg); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: var(--glow-emerald); }
+      50% { box-shadow: var(--glow-gold); }
+    }
+
+    @keyframes slideUnderline {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .animate-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+
+    .animate-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-content > * {
+      animation: fadeUp 0.8s var(--ease-out) backwards;
+    }
+
+    .hero-badge { animation-delay: 0.1s; }
+    .hero h1 { animation-delay: 0.2s; }
+    .hero p { animation-delay: 0.35s; }
+    .hero-cta { animation-delay: 0.5s; }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 18, 16, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      animation: fadeIn 0.6s ease;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.3s var(--ease-out);
+    }
+
+    .logo:hover { transform: scale(1.03); }
+    .logo span {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.25s;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--emerald), var(--gold));
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.35s var(--ease-out);
+    }
+
+    nav a:hover {
+      color: var(--gold-light);
+    }
+
+    nav a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* Hero */
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(212, 175, 55, 0.15));
+      border: 1px solid var(--border-emerald);
+      color: var(--emerald);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 5vw, 3.1rem);
+      line-height: 1.12;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--emerald) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 420px;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--emerald-dark), var(--emerald));
+      color: #fff;
+      text-decoration: none;
+      padding: 0.9rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+    }
+
+    .hero-cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 40%, rgba(212, 175, 55, 0.35) 50%, transparent 60%);
+      background-size: 200% 100%;
+      animation: shimmer 3s infinite;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--glow-emerald);
+    }
+
+    .hero-visual {
+      background: linear-gradient(145deg, var(--emerald-deep) 0%, var(--surface) 50%, #1a2f28 100%);
+      border-radius: var(--radius);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      animation: pulseGlow 4s ease-in-out infinite, fadeUp 0.9s var(--ease-out) 0.3s backwards;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(212, 175, 55, 0.2) 0%, transparent 55%);
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      width: 180%;
+      height: 180%;
+      border: 1px dashed rgba(212, 175, 55, 0.12);
+      border-radius: 50%;
+      animation: spinSlow 30s linear infinite;
+    }
+
+    .hero-shoe-icon {
+      font-size: 5rem;
+      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5));
+      animation: float 4s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Sections */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-header {
+      margin-bottom: 2.25rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.9rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-header h2 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold-light), var(--emerald));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Product grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s, border-color 0.4s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow), var(--glow-gold);
+      border-color: rgba(212, 175, 55, 0.35);
+    }
+
+    .card-image {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s var(--ease-out);
+    }
+
+    .card:hover .card-image { transform: scale(1.06); }
+
+    .card-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10, 18, 16, 0.5) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .card:hover .card-image::after { opacity: 1; }
+
+    .card-image.sneaker { background: linear-gradient(160deg, #1a332b, #0f241e); }
+    .card-image.boot { background: linear-gradient(160deg, #064e3b, #132620); }
+    .card-image.sandal { background: linear-gradient(160deg, #134e4a, #1a332b); }
+    .card-image.formal { background: linear-gradient(160deg, #1c2e28, #0a1210); }
+    .card-image.sport { background: linear-gradient(160deg, #065f46, #134e4a); }
+
+    .badge {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      z-index: 2;
+    }
+
+    .badge.in-stock {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--emerald);
+      border: 1px solid var(--border-emerald);
+    }
+
+    .badge.coming-soon {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-light);
+      border: 1px solid var(--border);
+    }
+
+    .card-body { padding: 1.15rem 1.25rem 1.3rem; }
+
+    .card-body h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      transition: color 0.3s;
+    }
+
+    .card:hover .card-body h3 { color: var(--gold-light); }
+
+    .card-meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .price {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--gold);
+    }
+
+    .price.tbd {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .sizes { font-size: 0.78rem; color: var(--muted); }
+
+    /* Upcoming section */
+    .upcoming-section {
+      background: linear-gradient(180deg, transparent, rgba(6, 78, 59, 0.15));
+      border-top: 1px solid var(--border-emerald);
+      border-bottom: 1px solid var(--border-emerald);
+      max-width: none;
+    }
+
+    .upcoming-section .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Store info */
+    .store-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: border-color 0.4s, box-shadow 0.4s;
+    }
+
+    .store-info:hover {
+      border-color: rgba(16, 185, 129, 0.35);
+      box-shadow: var(--shadow), var(--glow-emerald);
+    }
+
+    .store-info h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--gold-light);
+    }
+
+    .store-info li {
+      color: var(--muted);
+      font-size: 0.92rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      list-style: none;
+      transition: padding-left 0.3s var(--ease-out);
+    }
+
+    .store-info li:hover { padding-left: 6px; }
+    .store-info li:last-child { border-bottom: none; }
+
+    .store-info li strong {
+      color: var(--emerald);
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.15rem;
+    }
+
+    /* Contact section */
+    .contact-section {
+      max-width: none;
+      background: linear-gradient(180deg, rgba(6, 78, 59, 0.1), transparent);
+    }
+
+    .contact-section .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .contact-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: transform 0.35s var(--ease-out), border-color 0.35s, box-shadow 0.35s;
+    }
+
+    .contact-card:hover {
+      transform: translateX(6px);
+      border-color: rgba(212, 175, 55, 0.35);
+      box-shadow: var(--glow-gold);
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(212, 175, 55, 0.15));
+      border: 1px solid var(--border-emerald);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-card h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+      color: var(--gold-light);
+    }
+
+    .contact-card p,
+    .contact-card a {
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+
+    .contact-card a:hover { color: var(--emerald); }
+
+    .contact-form-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-form-wrap h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: var(--bg-soft);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.92rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--emerald);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.95rem 1.5rem;
+      margin-top: 0.5rem;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: var(--bg);
+      border: none;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--glow-gold);
+    }
+
+    .submit-btn:active { transform: translateY(0); }
+
+    .form-success {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--border-emerald);
+      border-radius: 10px;
+      color: var(--emerald);
+      font-size: 0.88rem;
+      animation: fadeUp 0.5s var(--ease-out);
+    }
+
+    .form-success.show { display: block; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer strong {
+      background: linear-gradient(135deg, var(--gold-light), var(--emerald));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .animate-in { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 768px) {
+      nav ul { gap: 0.85rem; }
+      nav a { font-size: 0.8rem; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 2.5rem;
+      }
+      .hero-visual { order: -1; }
+      .store-info,
+      .contact-grid,
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav">
+      <a href="#" class="logo">Stride <span>&</span> Sole</a>
+      <nav>
+        <ul>
+          <li><a href="#shoes">Shoes</a></li>
+          <li><a href="#upcoming">Upcoming</a></li>
+          <li><a href="#store">Visit Store</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-badge">Offline store only</span>
+      <h1>Step into <span class="highlight">style</span> at our local shoe shop</h1>
+      <p>Browse our full in-store collection below. All items are available to try on and purchase at our physical location — no online orders.</p>
+      <a href="#shoes" class="hero-cta">View collection ↓</a>
+    </div>
+    <div class="hero-visual">
+      <span class="hero-shoe-icon" aria-hidden="true">👟</span>
+    </div>
+  </section>
+
+  <section id="shoes">
+    <div class="section-header animate-in">
+      <span class="section-label">Collection</span>
+      <h2>All <em>Shoes</em></h2>
+      <p>Currently available at our offline store. Prices in PKR.</p>
+    </div>
+
+    <div class="grid">
+      <article class="card animate-in">
+        <div class="card-image sneaker">👟
+          <span class="badge in-stock">In stock</span>
+        </div>
+        <div class="card-body">
+          <h3>Classic White Sneakers</h3>
+          <p class="card-meta">Casual · Unisex</p>
+          <div class="card-footer">
+            <span class="price">Rs. 4,500</span>
+            <span class="sizes">Sizes 7–11</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card animate-in">
+        <div class="card-image boot">🥾
+          <span class="badge in-stock">In stock</span>
+        </div>
+        <div class="card-body">
+          <h3>Leather Ankle Boots</h3>
+          <p class="card-meta">Winter · Men</p>
+          <div class="card-footer">
+            <span class="price">Rs. 8,200</span>
+            <span class="sizes">Sizes 8–12</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card animate-in">
+        <div class="card-image formal">👞
+          <span class="badge in-stock">In stock</span>
+        </div>
+        <div class="card-body">
+          <h3>Oxford Formal Shoes</h3>
+          <p class="card-meta">Office · Men</p>
+          <div class="card-footer">
+            <span class="price">Rs. 6,800</span>
+            <span class="sizes">Sizes 7–11</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card animate-in">
+        <div class="card-image sandal">🩴
+          <span class="badge in-stock">In stock</span>
+        </div>
+        <div class="card-body">
+          <h3>Comfort Slides</h3>
+          <p class="card-meta">Summer · Unisex</p>
+          <div class="card-footer">
+            <span class="price">Rs. 2,200</span>
+            <span class="sizes">Sizes 6–10</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card animate-in">
+        <div class="card-image sport">👟
+          <span class="badge in-stock">In stock</span>
+        </div>
+        <div class="card-body">
+          <h3>Running Trainers</h3>
+          <p class="card-meta">Sports · Unisex</p>
+          <div class="card-footer">
+            <span class="price">Rs. 7,500</span>
+            <span class="sizes">Sizes 7–12</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card animate-in">
+        <div class="card-image sneaker">👟
+          <span class="badge in-stock">In stock</span>
+        </div>
+        <div class="card-body">
+          <h3>Canvas Low-Tops</h3>
+          <p class="card-meta">Everyday · Women</p>
+          <div class="card-footer">
+            <span class="price">Rs. 3,800</span>
+            <span class="sizes">Sizes 5–9</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card animate-in">
+        <div class="card-image boot">🥾
+          <span class="badge in-stock">In stock</span>
+        </div>
+        <div class="card-body">
+          <h3>Hiking Boots</h3>
+          <p class="card-meta">Outdoor · Unisex</p>
+          <div class="card-footer">
+            <span class="price">Rs. 9,500</span>
+            <span class="sizes">Sizes 8–12</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card animate-in">
+        <div class="card-image formal">👞
+          <span class="badge in-stock">In stock</span>
+        </div>
+        <div class="card-body">
+          <h3>Loafers — Brown</h3>
+          <p class="card-meta">Smart casual · Men</p>
+          <div class="card-footer">
+            <span class="price">Rs. 5,900</span>
+            <span class="sizes">Sizes 7–11</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="upcoming" class="upcoming-section">
+    <div class="inner">
+      <div class="section-header animate-in">
+        <span class="section-label">New arrivals</span>
+        <h2>Upcoming <em>Items</em></h2>
+        <p>Arriving soon at our offline store. Visit us or ask in-store for arrival dates.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card animate-in">
+          <div class="card-image sport">👟
+            <span class="badge coming-soon">Coming soon</span>
+          </div>
+          <div class="card-body">
+            <h3>Pro Basketball High-Tops</h3>
+            <p class="card-meta">Sports · Limited edition</p>
+            <div class="card-footer">
+              <span class="price tbd">Price TBA</span>
+              <span class="sizes">Expected Aug 2026</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card animate-in">
+          <div class="card-image sandal">🩴
+            <span class="badge coming-soon">Coming soon</span>
+          </div>
+          <div class="card-body">
+            <h3>Leather Strap Sandals</h3>
+            <p class="card-meta">Summer · Women</p>
+            <div class="card-footer">
+              <span class="price tbd">Price TBA</span>
+              <span class="sizes">Expected Sep 2026</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card animate-in">
+          <div class="card-image boot">🥾
+            <span class="badge coming-soon">Coming soon</span>
+          </div>
+          <div class="card-body">
+            <h3>Chelsea Boots — Suede</h3>
+            <p class="card-meta">Fall collection · Unisex</p>
+            <div class="card-footer">
+              <span class="price tbd">Price TBA</span>
+              <span class="sizes">Expected Sep 2026</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card animate-in">
+          <div class="card-image sneaker">👟
+            <span class="badge coming-soon">Coming soon</span>
+          </div>
+          <div class="card-body">
+            <h3>Retro Runner — Navy/Red</h3>
+            <p class="card-meta">Vintage style · Unisex</p>
+            <div class="card-footer">
+              <span class="price tbd">Price TBA</span>
+              <span class="sizes">Expected Oct 2026</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="store">
+    <div class="section-header animate-in">
+      <span class="section-label">Find us</span>
+      <h2>Visit Our <em>Store</em></h2>
+      <p>Try before you buy — all purchases are in-store only.</p>
+    </div>
+
+    <div class="store-info animate-in">
+      <div>
+        <h3>Location & Contact</h3>
+        <ul>
+          <li>
+            <strong>Address</strong>
+            Shop 12, Main Market, Karachi, Pakistan
+          </li>
+          <li>
+            <strong>Phone</strong>
+            +92 300 1234567
+          </li>
+          <li>
+            <strong>WhatsApp</strong>
+            +92 300 1234567
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3>Store Hours</h3>
+        <ul>
+          <li>
+            <strong>Monday – Saturday</strong>
+            10:00 AM – 9:00 PM
+          </li>
+          <li>
+            <strong>Sunday</strong>
+            12:00 PM – 6:00 PM
+          </li>
+          <li>
+            <strong>Note</strong>
+            New arrivals listed under Upcoming may vary by delivery. Call ahead to confirm stock.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="inner">
+      <div class="section-header animate-in">
+        <span class="section-label">Get in touch</span>
+        <h2>Contact <em>Us</em></h2>
+        <p>Have a question about stock, sizes, or upcoming arrivals? Send us a message.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-cards animate-in">
+          <div class="contact-card">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h4>Visit Us</h4>
+              <p>Shop 12, Main Market<br />Karachi, Pakistan</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">📞</div>
+            <div>
+              <h4>Call Us</h4>
+              <p><a href="tel:+923001234567">+92 300 1234567</a></p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">💬</div>
+            <div>
+              <h4>WhatsApp</h4>
+              <p><a href="https://wa.me/923001234567" target="_blank" rel="noopener">Message on WhatsApp</a></p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">✉️</div>
+            <div>
+              <h4>Email</h4>
+              <p><a href="mailto:hello@strideandsole.com">hello@strideandsole.com</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap animate-in">
+          <h3>Send a Message</h3>
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="+92 300 0000000" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" name="subject">
+                <option value="stock">Stock inquiry</option>
+                <option value="upcoming">Upcoming items</option>
+                <option value="size">Size availability</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="How can we help you?" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+            <p class="form-success" id="formSuccess">Thank you! Your message has been received. We'll get back to you soon.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Stride & Sole</strong> — Offline shoe store. No online checkout.</p>
+    <p>© 2026 All rights reserved.</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            const delay = entry.target.closest(".grid")
+              ? [...entry.target.parentElement.children].indexOf(entry.target) * 80
+              : 0;
+            setTimeout(() => entry.target.classList.add("visible"), delay);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    document.querySelectorAll(".animate-in").forEach((el) => observer.observe(el));
+
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      document.getElementById("formSuccess").classList.add("show");
+      e.target.reset();
+      setTimeout(() => {
+        document.getElementById("formSuccess").classList.remove("show");
+      }, 5000);
+    });
+  </script>
+
+</body>
+</html>
