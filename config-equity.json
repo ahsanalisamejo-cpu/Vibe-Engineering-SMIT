@@ -1,0 +1,96 @@
+{
+  "countries": [
+    {
+      "code": "RSA",
+      "sharepointPath": "Equity/10. RSA Laundry (Toluna)",
+      "blobFolder": "Equity/RSA",
+      "driveName": "Documents"
+    },
+    {
+      "code": "Venus",
+      "sharepointPath": "Equity/11. Venus Female B&R",
+      "blobFolder": "Equity/Venus",
+      "driveName": "Documents"
+    },
+    {
+      "code": "Egypt",
+      "sharepointPath": "Equity/12. Egypt",
+      "blobFolder": "Equity/Egypt",
+      "driveName": "Documents"
+    },
+    {
+      "code": "India",
+      "sharepointPath": "Equity/3. India",
+      "blobFolder": "Equity/India",
+      "driveName": "Documents"
+    },
+    {
+      "code": "Japan",
+      "sharepointPath": "Equity/4. Japan (Baby & Fem)",
+      "blobFolder": "Equity/Japan",
+      "driveName": "Documents"
+    },
+    {
+      "code": "Geopoll",
+      "sharepointPath": "Equity/5. GeoPoll (RSA)",
+      "blobFolder": "Equity/Geopoll",
+      "driveName": "Documents"
+    },
+    {
+      "code": "Kantar",
+      "sharepointPath": "Equity/6. Kantar",
+      "blobFolder": "Equity/Kantar",
+      "driveName": "Documents"
+    },
+    {
+      "code": "Morocco",
+      "sharepointPath": "Equity/7. Morocco",
+      "blobFolder": "Equity/Morocco",
+      "driveName": "Documents"
+    },
+    {
+      "code": "Pakistan",
+      "sharepointPath": "Equity/8. Pakistan",
+      "blobFolder": "Equity/Pakistan",
+      "driveName": "Documents"
+    },
+    {
+      "code": "Philippines",
+      "sharepointPath": "Equity/9. Philippines Diapers (YouGov)",
+      "blobFolder": "Equity/Philippines",
+      "driveName": "Documents"
+    },
+    {
+      "code": "AMA",
+      "sharepointPath": "Equity/AMA",
+      "blobFolder": "Equity/AMA",
+      "driveName": "Documents"
+    },
+    {
+      "code": "APAC",
+      "sharepointPath": "Equity/APAC",
+      "blobFolder": "Equity/APAC",
+      "driveName": "Documents"
+    },
+    {
+      "code": "Mapping",
+      "sharepointPath": "Equity/Mapping Files",
+      "blobFolder": "Equity/Mapping Files",
+      "driveName": "Documents"
+    },
+    {
+      "code": "Mappings",
+      "sharepointPath": "BHT/Mapping files",
+      "blobFolder": "Equity/BT Mapping Files",
+      "driveName": "Documents"
+      
+    },
+		    {
+      "code": "NOS",
+      "sharepointPath": "CTSR/NOS Files",
+      "blobFolder": "NOS",
+      "driveName": "Documents"
+      
+    }
+  ]
+}
