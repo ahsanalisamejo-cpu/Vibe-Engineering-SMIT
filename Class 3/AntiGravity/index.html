@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATELIER SOLE | Physical Boutique & Footwear Catalog</title>
+  <meta name="description" content="Explore our handpicked in-store footwear collection and upcoming drops. Visit our physical boutique for custom fit try-ons and artisan footwear care.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="top-announcement" aria-label="Store Announcement">
+    <div class="container announcement-inner">
+      <div class="announcement-item">
+        <span class="live-pulse"></span>
+        <span id="liveStoreStatusText">Checking store hours...</span>
+      </div>
+      <div class="announcement-item hide-mobile">
+        <span>📍 442 Artisan Way, Soho Fashion District &bull; Complimentary In-Store Sizing &amp; Leather Care</span>
+      </div>
+      <div class="announcement-item">
+        <a href="#store-visit" class="announcement-link">Plan Your Visit &rarr;</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Sticky Main Navigation -->
+  <header class="main-header" id="navbar">
+    <div class="container header-container">
+      <a href="#" class="brand-logo" aria-label="Atelier Sole Homepage">
+        <span class="brand-glyph">✦</span>
+        <span class="brand-text">ATELIER<strong>SOLE</strong></span>
+        <span class="brand-tag">BOUTIQUE &amp; ARCHIVE</span>
+      </a>
+
+      <nav class="nav-links" id="primaryNav" aria-label="Main Navigation">
+        <a href="#catalog" class="nav-link active" data-nav="catalog">Current Stock</a>
+        <a href="#drop-radar" class="nav-link" data-nav="drop-radar">Upcoming Drops</a>
+        <a href="#store-visit" class="nav-link" data-nav="store-visit">Store &amp; Hours</a>
+        <a href="#fitting-experience" class="nav-link" data-nav="fitting-experience">Fitting Service</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn search-trigger-btn" id="headerSearchToggle" aria-label="Focus Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <a href="#store-visit" class="btn btn-sm btn-primary">Visit Offline Store</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>Physical Store Curation &bull; 2026 Collection</span>
+          </div>
+          <h1 class="hero-title">
+            Crafted for Motion. <br>
+            <span class="hero-title-sub">Fitted in Person.</span>
+          </h1>
+          <p class="hero-description">
+            Experience our curated catalog of everyday sneakers, bespoke leather boots, trail runners, and limited drops. Visit our offline boutique for precision sizing, try-on comfort, and same-day collection.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#catalog" class="btn btn-primary btn-lg">Browse In-Store Stock</a>
+            <a href="#drop-radar" class="btn btn-secondary btn-lg">View Upcoming Releases</a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-box">
+              <span class="metric-num" id="inStockCountMetric">12+</span>
+              <span class="metric-label">Curated Models In-Store</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-box">
+              <span class="metric-num">US 6 – 13</span>
+              <span class="metric-label">Full Sizing On Rack</span>
+            </div>
+            <div class="metric-divider"></div>
+            <div class="metric-box">
+              <span class="metric-num">100%</span>
+              <span class="metric-label">Authentic &amp; Hand-inspected</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="featured-card">
+            <div class="featured-image-wrapper">
+              <img src="assets/images/nomad-classic-sneaker.jpg" alt="Nomad Minimalist Classic Sneaker" class="featured-image" id="heroImage">
+              <span class="spotlight-tag">In-Store Feature #01</span>
+            </div>
+            <div class="featured-card-footer">
+              <div>
+                <span class="card-category">Everyday Classic Sneaker</span>
+                <h3 class="card-shoe-name">Nomad Craft Low 'Terracotta'</h3>
+              </div>
+              <div class="card-price-block">
+                <span class="card-price">$185</span>
+                <span class="in-stock-pill">Rack A-02</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section class="catalog-section" id="catalog">
+      <div class="container">
+        
+        <!-- Section Header & Filter Controls -->
+        <div class="catalog-header">
+          <div class="section-heading">
+            <span class="section-kicker">Catalog &amp; Inventory</span>
+            <h2 class="section-title">Explore Footwear Collection</h2>
+            <p class="section-subtitle">Real-time inventory available on our boutique display shelves, along with upcoming batch dates.</p>
+          </div>
+
+          <!-- Quick Search Bar -->
+          <div class="catalog-search-wrapper">
+            <div class="search-input-group">
+              <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="shoeSearchInput" placeholder="Search by model, material, color, or style..." autocomplete="off">
+              <button id="clearSearchBtn" class="clear-search-btn" aria-label="Clear search input" style="display: none;">&times;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Controls Bar -->
+        <div class="filter-toolbar">
+          <!-- Availability Segmented Switch -->
+          <div class="segmented-control" role="group" aria-label="Filter by Stock Availability">
+            <button class="seg-btn active" data-availability="all">All Footwear</button>
+            <button class="seg-btn" data-availability="in-store">
+              <span class="status-indicator-dot ready"></span> In-Store Now
+            </button>
+            <button class="seg-btn" data-availability="upcoming">
+              <span class="status-indicator-dot upcoming"></span> Upcoming Drops
+            </button>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="category-pills-scroll">
+            <div class="category-pills" id="categoryPills">
+              <button class="cat-pill active" data-category="all">All Categories</button>
+              <button class="cat-pill" data-category="sneaker">Sneakers</button>
+              <button class="cat-pill" data-category="boots">Boots &amp; Chelsea</button>
+              <button class="cat-pill" data-category="runner">Runners &amp; Trail</button>
+              <button class="cat-pill" data-category="dress">Loafers &amp; Oxfords</button>
+            </div>
+          </div>
+
+          <!-- Sort Selector & Reset -->
+          <div class="filter-actions">
+            <div class="custom-select-wrapper">
+              <label for="sortSelect" class="sr-only">Sort footwear</label>
+              <select id="sortSelect" class="sort-select">
+                <option value="featured">Sort: Featured Collection</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name-asc">Alphabetical: A to Z</option>
+              </select>
+            </div>
+            <button id="resetFiltersBtn" class="btn btn-outline btn-sm reset-btn" style="display: none;">
+              Reset Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Filter Summary -->
+        <div class="filter-results-bar">
+          <span id="resultsCountText">Showing all footwear</span>
+          <span class="in-store-notice">📌 All items marked "In-Store Now" can be tried on immediately at our Soho shop.</span>
+        </div>
+
+        <!-- Shoe Cards Grid -->
+        <div class="shoes-grid" id="shoesGrid" aria-live="polite">
+          <!-- Populated dynamically via app.js -->
+        </div>
+
+        <!-- No Results Fallback -->
+        <div class="no-results-state" id="noResultsState" style="display: none;">
+          <div class="no-results-icon">👞</div>
+          <h3>No matching shoes found</h3>
+          <p>Try searching for a different term, changing categories, or clearing your active filters.</p>
+          <button class="btn btn-primary" id="fallbackResetBtn">Show All Footwear</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Upcoming Drops Showcase Radar -->
+    <section class="drop-radar-section" id="drop-radar">
+      <div class="container">
+        <div class="radar-header">
+          <div>
+            <span class="section-kicker">Future Arrivals &amp; Limited Runs</span>
+            <h2 class="section-title">Upcoming In-Store Drop Radar</h2>
+            <p class="section-subtitle">Preview the next generation of footwear arriving at our physical boutique. Set an alert to be notified when sizes arrive on shelf.</p>
+          </div>
+          <div class="radar-info-badge">
+            <span>🔔 In-store fitting reservations open 48h before release</span>
+          </div>
+        </div>
+
+        <div class="upcoming-cards-grid" id="upcomingCardsGrid">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Physical Store Experience & Benefits -->
+    <section class="fitting-section" id="fitting-experience">
+      <div class="container">
+        <div class="section-heading text-center">
+          <span class="section-kicker">The Offline Advantage</span>
+          <h2 class="section-title">Why Visit Our Physical Boutique?</h2>
+          <p class="section-subtitle">Footwear is meant to be felt, flexed, and precision-fitted before making it yours.</p>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">📏</div>
+            <h3 class="benefit-title">Custom 3D Fit &amp; Arch Scan</h3>
+            <p class="benefit-desc">Our specialists measure foot volume, width, and pressure points to guarantee blister-free comfort.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">👞</div>
+            <h3 class="benefit-title">Tactile Material Inspection</h3>
+            <p class="benefit-desc">Feel the Italian full-grain hides, Cordura ripstops, Vibram lugs, and natural gum soles in person.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">✨</div>
+            <h3 class="benefit-title">Lifetime Leather Care &amp; Clean</h3>
+            <p class="benefit-desc">Every pair purchased at our physical store receives complimentary conditioning and lace replacements.</p>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-icon">📦</div>
+            <h3 class="benefit-title">Instant Walk-Out Sizing</h3>
+            <p class="benefit-desc">No shipping wait or return hassles. Walk in, find your ideal fit, and walk out wearing your pair today.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- In-Store Location, Operating Hours & Visit Planner -->
+    <section class="store-visit-section" id="store-visit">
+      <div class="container">
+        <div class="store-visit-grid">
+          
+          <!-- Location & Details -->
+          <div class="store-info-pane">
+            <span class="section-kicker">Physical Boutique</span>
+            <h2 class="section-title">Visit Us in Soho</h2>
+            <p class="store-address-highlight">
+              <strong>ATELIER SOLE BOUTIQUE</strong><br>
+              442 Artisan Way, Soho Fashion Quarter<br>
+              New York, NY 10013
+            </p>
+
+            <div class="store-actions-row">
+              <button class="btn btn-primary" id="copyAddressBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Copy Address
+              </button>
+              <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                Open in Maps &rarr;
+              </a>
+            </div>
+
+            <div class="store-amenities">
+              <h4>Boutique Perks</h4>
+              <ul class="amenities-list">
+                <li>✓ Dedicated customer parking behind studio</li>
+                <li>✓ 2 minutes walk from Spring St Subway Station</li>
+                <li>✓ Sizing hold service (Call ahead to hold pairs for 24h)</li>
+                <li>✓ Wheelchair accessible fitting lounge</li>
+              </ul>
+            </div>
+
+            <div class="contact-quick">
+              <div>
+                <span class="contact-label">Boutique Phone</span>
+                <a href="tel:+12125550198" class="contact-value">+1 (212) 555-0198</a>
+              </div>
+              <div>
+                <span class="contact-label">Direct Concierge</span>
+                <a href="mailto:boutique@ateliersole.com" class="contact-value">boutique@ateliersole.com</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weekly Schedule & Live Indicator -->
+          <div class="store-schedule-pane">
+            <div class="schedule-card">
+              <div class="schedule-header">
+                <div>
+                  <span class="schedule-title">Weekly Store Hours</span>
+                  <p class="schedule-subtitle">Walk-ins always welcome. No appointment required.</p>
+                </div>
+                <div class="live-status-pill" id="scheduleStatusBadge">
+                  <span class="status-indicator-dot ready"></span>
+                  <span id="liveStatusPillText">Open Today</span>
+                </div>
+              </div>
+
+              <div class="hours-table" id="weeklyHoursTable">
+                <div class="hours-row" data-day="1">
+                  <span class="day-name">Monday</span>
+                  <span class="day-time">10:00 AM – 8:00 PM</span>
+                </div>
+                <div class="hours-row" data-day="2">
+                  <span class="day-name">Tuesday</span>
+                  <span class="day-time">10:00 AM – 8:00 PM</span>
+                </div>
+                <div class="hours-row" data-day="3">
+                  <span class="day-name">Wednesday</span>
+                  <span class="day-time">10:00 AM – 8:00 PM</span>
+                </div>
+                <div class="hours-row" data-day="4">
+                  <span class="day-name">Thursday</span>
+                  <span class="day-time">10:00 AM – 8:00 PM</span>
+                </div>
+                <div class="hours-row" data-day="5">
+                  <span class="day-name">Friday</span>
+                  <span class="day-time">10:00 AM – 9:00 PM</span>
+                </div>
+                <div class="hours-row" data-day="6">
+                  <span class="day-name">Saturday</span>
+                  <span class="day-time">10:00 AM – 9:00 PM</span>
+                </div>
+                <div class="hours-row" data-day="0">
+                  <span class="day-name">Sunday</span>
+                  <span class="day-time">11:00 AM – 6:00 PM</span>
+                </div>
+              </div>
+
+              <div class="schedule-footer">
+                <p>💡 <em>Planning to try a specific rare size? Call our desk ahead of time to confirm exact shelf placement.</em></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Product Detail Modal -->
+  <div class="modal-backdrop" id="shoeModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="closeModalBtn" aria-label="Close details">&times;</button>
+      
+      <div class="modal-body" id="modalContent">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="assertive"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="brand-logo">
+          <span class="brand-glyph">✦</span>
+          <span class="brand-text">ATELIER<strong>SOLE</strong></span>
+        </div>
+        <p class="footer-tagline">Physical footwear showroom, custom sizing &amp; retail curation.</p>
+        <p class="footer-copy">&copy; 2026 Atelier Sole Inc. All rights reserved.</p>
+      </div>
+
+      <div class="footer-nav">
+        <h4>Catalog Sections</h4>
+        <ul>
+          <li><a href="#catalog" class="filter-quick-link" data-filter="all">All Footwear</a></li>
+          <li><a href="#catalog" class="filter-quick-link" data-filter="sneaker">Sneakers</a></li>
+          <li><a href="#catalog" class="filter-quick-link" data-filter="boots">Handmade Boots</a></li>
+          <li><a href="#drop-radar">Upcoming Drop Radar</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-nav">
+        <h4>Offline Store</h4>
+        <ul>
+          <li><a href="#store-visit">Location &amp; Directions</a></li>
+          <li><a href="#store-visit">Store Operating Hours</a></li>
+          <li><a href="#fitting-experience">In-Store Sizing Service</a></li>
+          <li><a href="tel:+12125550198">Call Front Desk</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

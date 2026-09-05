@@ -1,0 +1,27 @@
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  content: [
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        kanban: {
+          yellow: '#ecad0a',
+          blue: '#209dd7',
+          purple: '#753991',
+          navy: '#032147',
+          gray: '#888888',
+        },
+      },
+      fontFamily: {
+        sans: ['system-ui', 'sans-serif'],
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
